@@ -4,7 +4,7 @@
 
 "@anzar/build@ngAnzar/build":
   version "1.0.0"
-  resolved "https://codeload.github.com/ngAnzar/build/tar.gz/d2d684bb9f383e85a004c7a01e0983322f0cacf0"
+  resolved "https://codeload.github.com/ngAnzar/build/tar.gz/91ff0a876565c3415b1dc6ca300126731fbb0345"
   dependencies:
     "@anzar/style" "github:ngAnzar/style"
     angular2-template-loader "^0.6.2"
@@ -16,6 +16,7 @@
     loader-utils "^1.1.0"
     minimist "^1.2.0"
     pug "^2.0.3"
+    resolve "^1.7.1"
     stylus "^0.54.5"
     ts-loader "^4.1.0"
     tsconfig-paths-webpack-plugin "^3.0.3"
@@ -4849,7 +4850,7 @@ resolve-url@^0.2.1, resolve-url@~0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
 
-resolve@^1.1.6:
+resolve@^1.1.6, resolve@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.7.1.tgz#aadd656374fd298aee895bc026b8297418677fd3"
   dependencies:
