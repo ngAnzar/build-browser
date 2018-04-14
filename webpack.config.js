@@ -8,7 +8,7 @@ import { config, options } from "@anzar/build"
 
 
 options.setAll({
-    platform: () => "browser",
+    __PLATFORM__: "browser",
     FEAT_CSS_VARIABLES: false
 })
 
