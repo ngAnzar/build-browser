@@ -2,6 +2,8 @@ import path from "path"
 import url from "url"
 
 import webpack from "webpack"
+import HtmlWebpackPlugin from "html-webpack-plugin"
+
 import { config, options } from "@anzar/build"
 
 
