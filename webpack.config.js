@@ -1,3 +1,6 @@
+import path from "path"
+import url from "url"
+
 import webpack from "webpack"
 import { config, options } from "@anzar/build"
 
@@ -22,6 +25,24 @@ export default config("@anzar/build", {
 
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        new HtmlWebpackPlugin({
+            chunksSortMode: "dependency",
+            inject: false,
+            template: path.join(__dirname, "index.pug")
+        })
     ]
+}).define((defs, cfg, key) => {
+    defs.set("__DEV_SERVER__", () => {
+        if (options.isServing && cfg.devServer) {
+            let dvs = cfg.devServer
+            return url.format({
+                protocol: dvs.https ? "https" : "http",
+                host: dvs.host ? dvs.host : "localhost",
+                port: dvs.port
+            })
+        } else {
+            return null
+        }
+    })
 })
