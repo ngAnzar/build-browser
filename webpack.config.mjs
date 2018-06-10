@@ -40,7 +40,7 @@ export default config("@anzar/build", {
             let dvs = cfg.devServer
             return url.format({
                 protocol: dvs.https ? "https" : "http",
-                host: dvs.host ? dvs.host : "localhost",
+                hostname: dvs.host ? dvs.host : "localhost",
                 port: dvs.port
             })
         } else {
