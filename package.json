@@ -6,6 +6,9 @@
     "name": "Vetési Zoltán",
     "email": "vetesi.zoltan@gmail.com"
   },
+  "bin": {
+    "anzar-browser": "src/cli"
+  },
   "dependencies": {
     "@anzar/build": "ngAnzar/build",
     "html-webpack-plugin": "^3.2.0",
