@@ -7,7 +7,7 @@
     "email": "vetesi.zoltan@gmail.com"
   },
   "bin": {
-    "anzar-browser": "src/cli"
+    "anzar-browser": "src/cli.js"
   },
   "dependencies": {
     "@anzar/build": "ngAnzar/build",
