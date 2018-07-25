@@ -5,6 +5,6 @@ require("child_process").spawn(
     [
         "--experimental-modules",
         require("path").join(__dirname, "cli.mjs"),
-        ...process.argv
+        ...process.argv.slice(2)
     ],
     { stdio: "inherit" })

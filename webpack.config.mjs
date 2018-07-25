@@ -18,7 +18,7 @@ export default config("@anzar/build", {
         development(cfg, key) {
             return {
                 devServer: {
-                    contentBase: path.join(options.package_path, "dist", "[__MODE__]"),
+                    contentBase: path.join(options.project_path, "dist", "[__MODE__]"),
                     port: 4200,
                     hot: options.hot,
                     historyApiFallback: true,
