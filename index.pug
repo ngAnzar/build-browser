@@ -4,10 +4,7 @@ html
   head
   title= htmlWebpackPlugin.options.title
   body
-    app= `Loading...${__PLATFORM__}`
+    app= `Loading...${__PLATFORM__} ZSÍR KIRÁLY`
 
     for chunk in htmlWebpackPlugin.files.chunks
-      script(src=`${chunk.entry}`)
-
-    if __DEV_SERVER__
-      script(src=`/webpack-dev-server.js`)
+      script(src=`${chunk.entry}` type="text/javascript" async=true)
