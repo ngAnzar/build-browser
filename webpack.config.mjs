@@ -35,9 +35,9 @@ export default config("@anzar/build", {
                     // stats: "errors-only"
                 },
 
-                plugins: [
-                    new webpack.HotModuleReplacementPlugin()
-                ]
+                // plugins: [
+                //     new webpack.HotModuleReplacementPlugin()
+                // ]
             }
         }
     },
