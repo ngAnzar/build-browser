@@ -2,9 +2,11 @@ doctype html
 
 html
   head
-  title= htmlWebpackPlugin.options.title
+  title= title
+  for file in css
+    link(rel="stylesheet" type="text/css" href=file.path media=file.media)
   body
     app= `Loading...${__PLATFORM__} ZSÍR KIRÁLY`
 
-    for chunk in htmlWebpackPlugin.files.chunks
-      script(src=`${chunk.entry}` type="text/javascript" async=true)
+    for file in js
+      script(src=`${file.path}` type="text/javascript" async=true)
