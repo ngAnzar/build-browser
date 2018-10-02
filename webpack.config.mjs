@@ -10,7 +10,29 @@ import nzStyle from "@anzar/build/src/plugins/style"
 options.setAll({
     __PLATFORM__: "browser",
     FEAT_CSS_VARIABLES: false,
-    TITLE: "App is loading..."
+    TITLE: "App is loading...",
+    babel: {
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "modules": false,
+                    "loose": true,
+                    "useBuiltIns": "usage",
+                    "targets": {
+                        "browsers": [
+                            "last 2 versions",
+                            "safari >= 7",
+                            "ie 11"
+                        ]
+                    }
+                }
+            ]
+        ],
+        "plugins": [
+            "babel-plugin-syntax-dynamic-import"
+        ]
+    }
 })
 
 export default config("@anzar/build", {
