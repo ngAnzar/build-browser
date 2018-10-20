@@ -1,71 +1,44 @@
 import path from "path"
 import url from "url"
 
-import webpack from "webpack"
-import HtmlWebpackPlugin from "html-webpack-plugin"
-
 import { config, options } from "@anzar/build"
-import nzStyle from "@anzar/build/src/plugins/style"
+import { htmlPlugin } from "./src/index"
 
 options.setAll({
     __PLATFORM__: "browser",
     FEAT_CSS_VARIABLES: false,
     TITLE: "App is loading...",
-    babel: {
-        "presets": [
-            [
-                "@babel/preset-env",
-                {
-                    "modules": false,
-                    "loose": true,
-                    "useBuiltIns": "usage",
-                    "targets": {
-                        "browsers": [
-                            "last 2 versions",
-                            "safari >= 7",
-                            "ie 11"
-                        ]
+    babel: () => {
+        return {
+            babelrc: false,
+            presets: [
+                [
+                    "@babel/preset-env",
+                    {
+                        modules: false,
+                        loose: true,
+                        useBuiltIns: "usage",
+                        targets: {
+                            browsers: [
+                                "last 2 versions",
+                                "safari >= 7",
+                                "ie 11"
+                            ]
+                        }
                     }
-                }
+                ]
+            ],
+            plugins: [
+                "babel-plugin-syntax-dynamic-import"
             ]
-        ],
-        "plugins": [
-            "babel-plugin-syntax-dynamic-import"
-        ]
+        }
     }
 })
 
 export default config("@anzar/build", {
     target: "web",
     plugins: [
-        new HtmlWebpackPlugin({
-            title: options.TITLE,
-            chunksSortMode: "dependency",
-            inject: false,
-            template: "relative://index.pug",
-            templateParameters: function (compilation, data) {
-                let css = {}
-
-                for (let entry of data.css) {
-                    let norm = entry.replace(/\\+/, "/")
-                    css[norm] = { path: norm, media: "all" }
-                }
-
-                for (let filePath in compilation.assets) {
-                    let entry = compilation.assets[filePath]
-                    if (entry instanceof nzStyle.CssSource) {
-                        filePath = filePath.replace(/\\+/, "/")
-                        css[filePath] = { path: "/" + filePath, media: entry.media }
-                    }
-                }
-
-                return {
-                    title: options.TITLE,
-                    js: data.js.map((entry) => { return { path: entry } }),
-                    css: Object.values(css)
-                }
-            }
-        })
+        // htmlPlugin("relative://index.pug")
     ],
     whenMode: {
         development(cfg, key) {

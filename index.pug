@@ -9,7 +9,7 @@ html
   for file in css
     link(rel="stylesheet" type="text/css" href=file.path media=file.media)
   body
-    app= `Loading...${__PLATFORM__} ZSÍR KIRÁLY`
+    block body
 
     for file in js
       script(src=`${file.path}` type="text/javascript" async=true)
