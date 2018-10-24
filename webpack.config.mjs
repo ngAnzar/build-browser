@@ -2,9 +2,9 @@ import path from "path"
 import url from "url"
 
 import { config, options } from "@anzar/build"
-import { htmlPlugin } from "./src/index"
 
-options.setAll({
+
+options.setAllDefault({
     __PLATFORM__: "browser",
     FEAT_CSS_VARIABLES: false,
     TITLE: "App is loading...",
