@@ -40,23 +40,13 @@ export default config("@anzar/build", {
     plugins: [
         // htmlPlugin("relative://index.pug")
     ],
-    whenMode: {
-        development(cfg, key) {
-            return {
-                devServer: {
-                    contentBase: path.join(options.project_path, "dist", "[__MODE__]"),
-                    port: 4200,
-                    // hot: options.hot,
-                    historyApiFallback: true,
-                    // clientLogLevel: "error",
-                    // stats: "errors-only"
-                },
-
-                // plugins: [
-                //     new webpack.HotModuleReplacementPlugin()
-                // ]
-            }
-        }
+    devServer: {
+        contentBase: path.join(options.project_path, "dist", "[__MODE__]"),
+        port: 4200,
+        // hot: options.hot,
+        historyApiFallback: true,
+        // clientLogLevel: "error",
+        // stats: "errors-only"
     },
     constants: {
         __DEV_SERVER__(cfg, key) {
