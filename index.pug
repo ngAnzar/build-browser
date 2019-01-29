@@ -5,11 +5,15 @@ html
     base(href="/")
     title= title
 
-    link(href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet")
-  for file in css
-    link(rel="stylesheet" type="text/css" href=file.path media=file.media)
+    block meta
+      meta(name="viewport" content="width=device-width, initial-scale=1")
+
+    block css
+    for file in css
+      link(rel="stylesheet" type="text/css" href=file.path media=file.media)
   body
     block body
 
+    block js
     for file in js
       script(src=`${file.path}` type="text/javascript" async=true)
