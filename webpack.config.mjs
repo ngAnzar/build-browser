@@ -37,11 +37,8 @@ options.setAllDefault({
 
 export default config("@anzar/build", {
     target: "web",
-    plugins: [
-        // htmlPlugin("relative://index.pug")
-    ],
     devServer: {
-        contentBase: path.join(options.project_path, "dist", "[__MODE__]"),
+        contentBase: options.out_path,
         port: 4200,
         // hot: options.hot,
         historyApiFallback: true,
