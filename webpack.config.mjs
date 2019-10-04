@@ -18,13 +18,11 @@ options.setAllDefault({
                         modules: false,
                         loose: true,
                         useBuiltIns: "usage",
-                        targets: {
-                            browsers: [
-                                "last 2 versions",
-                                "safari >= 7",
-                                "ie 11"
-                            ]
-                        }
+                        corejs: { version: 3, proposals: true },
+                        exclude: [
+                            "es.promise"
+                        ],
+                        targets: options.browserslist
                     }
                 ]
             ],
