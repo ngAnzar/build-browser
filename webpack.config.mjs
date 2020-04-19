@@ -19,6 +19,7 @@ options.setAllDefault({
                         loose: true,
                         useBuiltIns: "usage",
                         corejs: { version: 3, proposals: true },
+                        bugfixes: true,
                         exclude: [
                             "es.promise"
                         ],
@@ -38,10 +39,7 @@ export default config("@anzar/build", {
     devServer: {
         contentBase: options.out_path,
         port: 4200,
-        // hot: options.hot,
-        historyApiFallback: true,
-        // clientLogLevel: "error",
-        // stats: "errors-only"
+        historyApiFallback: true
     },
     constants: {
         __DEV_SERVER__(cfg, key) {
