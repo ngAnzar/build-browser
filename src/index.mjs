@@ -2,7 +2,7 @@ import path from "path"
 
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import { options } from "@anzar/build"
-import nzStyle from "@anzar/build/src/plugins/style"
+import NzStylePlugin from "@anzar/build/src/plugins/style/plugin"
 
 
 export function htmlPlugin(tpl, pluginOptions) {
@@ -29,7 +29,7 @@ export function htmlPlugin(tpl, pluginOptions) {
 
             for (let filePath in compilation.assets) {
                 let entry = compilation.assets[filePath]
-                if (entry instanceof nzStyle.CssSource) {
+                if (entry instanceof NzStylePlugin.CssSource) {
                     filePath = filePath.replace(/\\+/, "/")
                     css[filePath] = {
                         path: relativizePath(options.relative_assets, `/${filePath}`),
