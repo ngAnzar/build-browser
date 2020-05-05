@@ -11,6 +11,8 @@ html
       meta(charset="utf-8")
       meta(name="viewport" content="width=device-width, initial-scale=1")
 
+    != headTags.join("")
+
     block css
     for file in css
       link(rel="stylesheet" type="text/css" href=file.path media=file.media)

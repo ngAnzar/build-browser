@@ -12,37 +12,42 @@ export function htmlPlugin(tpl, pluginOptions) {
 
     return new HtmlWebpackPlugin({
         title: options.TITLE,
-        chunksSortMode: "dependency",
+        chunksSortMode: "auto",
         inject: false,
         template: tpl,
-        templateParameters: function (compilation, data) {
-            let css = {}
+        templateParameters: function (compilation, assets, assetTags) {
+            try {
+                let css = {}
 
-            for (let entry of data.css) {
-                let norm = entry.replace(/\\+/, "/")
+                for (let entry of assets.css) {
+                    let norm = entry.replace(/\\+/, "/")
 
-                css[norm] = {
-                    path: relativizePath(options.relative_assets, norm),
-                    media: "all"
-                }
-            }
-
-            for (let filePath in compilation.assets) {
-                let entry = compilation.assets[filePath]
-                if (entry instanceof NzStylePlugin.CssSource) {
-                    filePath = filePath.replace(/\\+/, "/")
-                    css[filePath] = {
-                        path: relativizePath(options.relative_assets, `/${filePath}`),
-                        media: entry.media
+                    css[norm] = {
+                        path: relativizePath(options.relative_assets, norm),
+                        media: "all"
                     }
                 }
-            }
 
-            return {
-                title: options.TITLE,
-                js: data.js.map((entry) => { return { path: relativizePath(options.relative_assets, entry) } }),
-                css: Object.values(css),
-                ...params
+                for (let filePath in compilation.assets) {
+                    let entry = compilation.assets[filePath]
+                    if (entry instanceof NzStylePlugin.CssSource) {
+                        filePath = filePath.replace(/\\+/, "/")
+                        css[filePath] = {
+                            path: relativizePath(options.relative_assets, `/${filePath}`),
+                            media: entry.media
+                        }
+                    }
+                }
+
+                return {
+                    title: options.TITLE,
+                    js: assets.js.map((entry) => { return { path: relativizePath(options.relative_assets, entry) } }),
+                    css: Object.values(css),
+                    headTags: assetTags.headTags.filter(v => v.tagName !== "script"),
+                    ...params
+                }
+            } catch (e) {
+                console.log(e)
             }
         },
         ...pluginOptions

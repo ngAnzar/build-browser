@@ -11,6 +11,7 @@ options.setAllDefault({
     babel: () => {
         return {
             babelrc: false,
+            compact: false,
             presets: [
                 [
                     "@babel/preset-env",
