@@ -40,7 +40,8 @@ export default config("@anzar/build", {
     devServer: {
         contentBase: options.out_path,
         port: 4200,
-        historyApiFallback: true
+        historyApiFallback: true,
+        host: "0.0.0.0"
     },
     constants: {
         __DEV_SERVER__(cfg, key) {
@@ -48,7 +49,7 @@ export default config("@anzar/build", {
                 let dvs = cfg.devServer
                 return url.format({
                     protocol: dvs.https ? "https" : "http",
-                    hostname: dvs.host ? dvs.host : "localhost",
+                    hostname: dvs.host && dvs.host !== "0.0.0.0" ? dvs.host : "localhost",
                     port: dvs.port
                 })
             } else {
