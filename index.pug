@@ -16,9 +16,90 @@ html
     block css
     for file in css
       link(rel="stylesheet" type="text/css" href=file.path media=file.media)
-  body
-    block body
+
+    script.
+      window.AnzarLoader = (function() {
+        var queue = [];
+        var delayed = false;
+        var delayExpired = false;
+
+
+        function delay(time) {
+          delayed = time;
+          setTimeout(function () {
+            delayExpired = true;
+            var ql = queue[queue.length - 1]
+            if (ql && ql.content) {
+              injectAllScript();
+            }
+          }, time);
+        }
+
+        function load(src) {
+          var data = {src: src}
+          var index = queue.length
+          queue.push(data)
+
+          function continueQ(nextIndex) {
+            var next = queue[nextIndex];
+            if (next) {
+              getContent(next.src, function (nc) {
+                next.content = nc
+                continueQ(nextIndex + 1);
+              })
+            } else if (delayed && !delayExpired) {
+              /* pass... */
+            } else {
+              injectAllScript();
+            }
+          }
+
+          if (index === 0 || queue[index - 1].content) {
+            getContent(src, function (c) {
+              data.content = c;
+              continueQ(index + 1);
+            })
+          }
+        }
+
+        function getContent(src, cb) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", src);
+          xhr.onload = function() {
+            cb(xhr.responseText)
+          }
+          xhr.send();
+        }
+
+        function injectScript(content) {
+          var scriptEl = document.createElement("script")
+          scriptEl.type="text/javascript"
+          var contentEl = document.createTextNode(content)
+          scriptEl.appendChild(contentEl)
+          document.getElementsByTagName("head")[0].appendChild(scriptEl)
+        }
+
+        function injectAllScript() {
+          for (var i=0, l=queue.length ; i<l ; i++) {
+            injectScript(queue[i].content);
+          }
+        }
+
+        return {
+          load: load,
+          delay: delay
+        }
+      })();
 
     block js
     for file in js
-      script(src=`${file.path}` type="text/javascript" async=true)
+      script AnzarLoader.load("#{file.path}")
+
+      //- script(src=`${file.path}` type="text/javascript" defer)
+
+  body
+    block body
+
+
+
+
