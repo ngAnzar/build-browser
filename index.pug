@@ -18,6 +18,7 @@ html
       link(rel="stylesheet" type="text/css" href=file.path media=file.media)
 
     script.
+      //<![CDATA[
       window.AnzarLoader = (function() {
         var queue = [];
         var delayed = false;
@@ -28,7 +29,7 @@ html
           delayed = time;
           setTimeout(function () {
             delayExpired = true;
-            var ql = queue[queue.length - 1]
+            var ql = queue[queue.length - 1];
             if (ql && ql.content) {
               injectAllScript();
             }
@@ -36,17 +37,17 @@ html
         }
 
         function load(src) {
-          var data = {src: src}
-          var index = queue.length
-          queue.push(data)
+          var data = {src: src};
+          var index = queue.length;
+          queue.push(data);
 
           function continueQ(nextIndex) {
             var next = queue[nextIndex];
             if (next) {
               getContent(next.src, function (nc) {
-                next.content = nc
+                next.content = nc;
                 continueQ(nextIndex + 1);
-              })
+              });
             } else if (delayed && !delayExpired) {
               /* pass... */
             } else {
@@ -58,7 +59,7 @@ html
             getContent(src, function (c) {
               data.content = c;
               continueQ(index + 1);
-            })
+            });
           }
         }
 
@@ -66,22 +67,22 @@ html
           var xhr = new XMLHttpRequest();
           xhr.open("GET", src);
           xhr.onload = function() {
-            cb(xhr.responseText)
-          }
+            cb(xhr.responseText);
+          };
           xhr.send();
         }
 
-        function injectScript(content) {
-          var scriptEl = document.createElement("script")
-          scriptEl.type="text/javascript"
-          var contentEl = document.createTextNode(content)
-          scriptEl.appendChild(contentEl)
-          document.getElementsByTagName("head")[0].appendChild(scriptEl)
+        function injectScript(content, src) {
+          var scriptEl = document.createElement("script");
+          scriptEl.type="text/javascript";
+          var contentEl = document.createTextNode(content);
+          scriptEl.appendChild(contentEl);
+          document.getElementsByTagName("head")[0].appendChild(scriptEl);
         }
 
         function injectAllScript() {
           for (var i=0, l=queue.length ; i<l ; i++) {
-            injectScript(queue[i].content);
+            injectScript(queue[i].content, queue[i].src);
           }
         }
 
@@ -90,6 +91,7 @@ html
           delay: delay
         }
       })();
+      //]]>
 
     block js
     for file in js
