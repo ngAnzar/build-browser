@@ -2,7 +2,7 @@ import path from "path"
 
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import { options } from "@anzar/build"
-import NzStylePlugin from "@anzar/build/src/plugins/style/plugin"
+import NzStylePlugin from "@anzar/build/src/plugins/style/plugin.js"
 
 
 export function htmlPlugin(tpl, pluginOptions) {
